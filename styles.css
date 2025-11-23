@@ -1,0 +1,61 @@
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.calculator {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+body {
+    background-color: #f4f9f5;
+}
+
+.calculator-container {
+    position: relative;
+    z-index: 1;
+}
+
+.calculator-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    
+    background-image: url('assets/USA.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    opacity: 0.7;
+    
+    background-color: #ffffff; 
+    
+    border-radius: inherit;
+    z-index: -1;
+}
+
+#display, #history-display {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.history-box, .memory-box {
+    background-color: rgba(255, 255, 255, 0.95);
+}
+
+.calculator-body {
+    background-color: rgba(45, 55, 72, 0.9);
+}
+
+.calculator-body .text-gray-900 {
+    color: #1a202c !important;
+}
+.calculator-body .text-gray-600 {
+    color: #4a5568 !important;
+}

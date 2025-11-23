@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css"> 
+    <style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .calculator {
+             grid-template-columns: repeat(4, 1fr);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex justify-center items-start min-h-screen p-4">
+
+    <div class="calculator-container w-full max-w-5xl rounded-xl shadow-2xl p-6">
+        <h1 class="text-3xl font-extrabold text-gray-800 mb-6 pb-2">
+            Kalkulator
+        </h1>
+        
+        <div class="main-content flex flex-col lg:flex-row gap-6">
+            
+            <div class="calculator-body bg-gray-900 rounded-xl p-6 shadow-xl w-full lg:max-w-xs">
+                
+                <div class="bg-gray-200 p-3 rounded-lg mb-4">
+                    <div id="history-display" class="text-right text-sm text-gray-600 h-6 truncate"></div>
+                    <div id="display" class="text-right text-5xl font-light text-gray-900 min-h-12 overflow-hidden">0</div>
+                </div>
+
+                <div id="buttons" class="calculator grid gap-3">
+                    <button class="memory-btn bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-lg transition" data-action="mClear">MC</button>
+                    <button class="memory-btn bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-lg transition" data-action="mRecall">MR</button>
+                    <button class="memory-btn bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-lg transition" data-action="mPlus">M+</button>
+                    <button class="memory-btn bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-lg transition" data-action="mMinus">M-</button>
+
+                    <button class="control-btn bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 rounded-lg transition" data-action="clearAll">C</button>
+                    <button class="control-btn bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 rounded-lg transition" data-action="clearEntry">CE</button>
+                    <button class="operator-btn bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 rounded-lg transition" data-operator="divide">÷</button>
+                    <button class="operator-btn bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 rounded-lg transition" data-operator="multiply">×</button>
+
+                    <button class="number-btn bg-gray-300 hover:bg-gray-400 text-gray-900 font-bold py-3 rounded-lg transition" data-value="7">7</button>
+                    <button class="number-btn bg-gray-300 hover:bg-gray-400 text-gray-900 font-bold py-3 rounded-lg transition" data-value="8">8</button>
+                    <button class="number-btn bg-gray-300 hover:bg-gray-400 text-gray-900 font-bold py-3 rounded-lg transition" data-value="9">9</button>
+                    <button class="operator-btn bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 rounded-lg transition" data-operator="subtract">-</button>
+
+                    <button class="number-btn bg-gray-300 hover:bg-gray-400 text-gray-900 font-bold py-3 rounded-lg transition" data-value="4">4</button>
+                    <button class="number-btn bg-gray-300 hover:bg-gray-400 text-gray-900 font-bold py-3 rounded-lg transition" data-value="5">5</button>
+                    <button class="number-btn bg-gray-300 hover:bg-gray-400 text-gray-900 font-bold py-3 rounded-lg transition" data-value="6">6</button>
+                    <button class="operator-btn bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 rounded-lg transition" data-operator="add">+</button>
+
+                    <button class="number-btn bg-gray-300 hover:bg-gray-400 text-gray-900 font-bold py-3 rounded-lg transition" data-value="1">1</button>
+                    <button class="number-btn bg-gray-300 hover:bg-gray-400 text-gray-900 font-bold py-3 rounded-lg transition" data-value="2">2</button>
+                    <button class="number-btn bg-gray-300 hover:bg-gray-400 text-gray-900 font-bold py-3 rounded-lg transition" data-value="3">3</button>
+
+                    <button class="equals-btn bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded-lg transition row-span-2" data-action="calculate">=</button>
+                    
+                    <button class="number-btn bg-gray-300 hover:bg-gray-400 text-gray-900 font-bold py-3 rounded-lg transition col-span-2" data-value="0">0</button>
+                    
+                    <button class="decimal-btn bg-gray-300 hover:bg-gray-400 text-gray-900 font-bold py-3 rounded-lg transition" data-value=".">.</button>
+                </div>
+            </div>
+            
+            <div class="sidebar flex-1 flex flex-col gap-6">
+                <div class="history-box bg-white border border-gray-200 rounded-lg p-4 shadow-md flex-grow">
+                    <h2 class="text-xl font-semibold text-indigo-700 border-b pb-2 mb-3">Perhitungan</h2>
+                    <ul id="history-list" class="space-y-2 text-sm h-48 overflow-y-auto no-scrollbar">
+                        </ul>
+                </div>
+
+                <div class="memory-box bg-white border border-gray-200 rounded-lg p-4 shadow-md flex-grow">
+                    <h2 class="text-xl font-semibold text-indigo-700 border-b pb-2 mb-3">Fungsi Memori</h2>
+                    <ul id="memory-list" class="space-y-2 text-sm h-48 overflow-y-auto no-scrollbar mb-3">
+                        </ul>
+                    <div class="text-right">
+                        <button onclick="clearMemoryList()" class="bg-indigo-500 hover:bg-indigo-600 text-white text-sm py-1 px-3 rounded transition">MC All</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
