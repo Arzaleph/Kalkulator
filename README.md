@@ -1,5 +1,5 @@
-**Nama** <Arza Restu Arjuna> 
-**NPM** <2315061051> 
+**Nama** Arza Restu Arjuna
+**NPM** 2315061051
 
 ### Kalkulator Sederhana
 Proyek ini adalah implementasi dari program kalkulator dasar yang dibuat menggunakan Javascript.
